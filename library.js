@@ -64,8 +64,17 @@ function createDisplay(){
 
         const removeButton = document.createElement('button');
         removeButton.textContent = "Remove Book"
-        removeButton.addEventListener('click',function(event){
+        removeButton.addEventListener('click', function(event){
             console.log(event.target.parentElement.id);
+            targetId = parseInt(event.target.parentElement.id,10);
+            console.log ("target id: " + targetId );
+            for(i=myLibrary.length -1;i>=0;--i){
+                if(myLibrary[i].id === targetId){
+                    myLibrary.splice(i,1);
+                    console.log('removed element');
+                }
+            }
+            console.log(myLibrary);
             event.target.parentElement.remove();
         });
 
@@ -80,7 +89,7 @@ function createDisplay(){
 //when the form is submited run this function to add the book
 const createBookButton = document.querySelector('#add-btn');
 createBookButton.addEventListener('click', () => addBookToLibrary());
-
+let idCount = myLibrary.length;
 function addBookToLibrary(){
     const libraryDisplay = document.querySelector('.books');
     const titleText = document.querySelector('#book-title');
@@ -91,7 +100,8 @@ function addBookToLibrary(){
    
     const card = document.createElement('div');
     card.classList.add('card');
-    card.setAttribute('id', (myLibrary.length+1));
+    card.setAttribute('id', (idCount+1));
+    idCount++;
 
     const title = document.createElement('p');
     title.innerHTML = `Title: ${titleText.value}`;
@@ -103,7 +113,6 @@ function addBookToLibrary(){
     pages.innerHTML = `Length: ${pagesNumber.value} Pages`;
 
     let readButton = document.createElement('button');
-    readButton.setAttribute('id',(myLibrary.length + 1));
     if(isReadStatus.checked === true){
         readButton.innerHTML = "Read"
     }else {
@@ -113,10 +122,19 @@ function addBookToLibrary(){
     removeButton.textContent = "Remove Book";
     removeButton.addEventListener('click', function(event){
         console.log(event.target.parentElement.id);
+        targetId = parseInt(event.target.parentElement.id,10);
+        console.log ("target id: " + targetId );
+        for(i=myLibrary.length -1;i>=0;--i){
+            if(myLibrary[i].id === targetId){
+                myLibrary.splice(i,1);
+                console.log('removed element');
+            }
+        }
+        console.log(myLibrary);
         event.target.parentElement.remove();
-        
     });
-    const newBook = new Book((myLibrary.length + 1), titleText.value, authorText.value, pagesNumber.value, isReadStatus.checked);
+    const newBook = new Book((idCount), titleText.value, authorText.value, pagesNumber.value, isReadStatus.checked);
+
     myLibrary.push(newBook);
     card.appendChild(title);
     card.appendChild(author);
@@ -125,3 +143,4 @@ function addBookToLibrary(){
     card.appendChild(removeButton);
     libraryDisplay.appendChild(card);
 }
+//to remove book from array use myLibrary.splice(position, 1)
