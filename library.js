@@ -1,4 +1,3 @@
-let myLibrary = [];
 //TODO
 //function that loops array DONE
 //display each book on the page DONE
@@ -16,6 +15,13 @@ let myLibrary = [];
 //WANTS
 //make add book a modal
 //rename filter to sort
+
+//create the empty library array
+let myLibrary = [];
+// this is where all cards are appended to
+const libraryDisplay = document.querySelector('.books');
+
+//constructs the book object
 function Book(id, title, author, pages, isRead){
     this.id = id;
     this.title = title;
@@ -23,14 +29,25 @@ function Book(id, title, author, pages, isRead){
     this.pages = pages;
     this.isRead = isRead;
 }
-//starting data
-const theHobbit = new Book(1, 'the Hobbit', 'J. R. R. Tolkien', 295, true);
+//initialises the id count so that no two books get the same id to avoid errors
+let idCount = myLibrary.length + 1;
+//starting data for testing
+const theHobbit = new Book(idCount, 'the Hobbit', 'J. R. R. Tolkien', 295, true);
+createCard(idCount, 'the Hobbit', 'J. R. R. Tolkien', 295, true);
 myLibrary.push(theHobbit);
-const threeBodyProblem = new Book(2, 'Three Body Problem', 'Cixin Liu', 448, false);
+//book 2
+idCount = myLibrary.length + 1;
+const threeBodyProblem = new Book(idCount, 'Three Body Problem', 'Cixin Liu', 448, false);
+createCard(idCount, 'Three Body Problem', 'Cixin Liu', 448, false);
 myLibrary.push(threeBodyProblem);
-const mobyDick = new Book(3, 'Moby Dick', 'Herman Melville', 427, true);
+//book 3
+idCount = myLibrary.length + 1;
+const mobyDick = new Book(idCount, 'Moby Dick', 'Herman Melville', 427, true);
+createCard(idCount, 'Moby Dick', 'Herman Melville', 427, true);
 myLibrary.push(mobyDick);
-createDisplay()
+
+
+
 //show the add book form when add book is clicked and hide when clicked again
 //defaults to hidden
 const showFormButton = document.querySelector('#show-form');
@@ -44,117 +61,92 @@ showFormButton.addEventListener('click', function(){
     }
 });
 //create card
-//populate card with holders for book data
-function createDisplay(){
-    const libraryDisplay = document.querySelector('.books');
-    for(i=0;i < myLibrary.length;i++){
-        const card = document.createElement('div');
-        card.classList.add('card');
-        card.setAttribute('id', (i+1));
-        
-        const title = document.createElement('p');
-        title.innerHTML = `Title: ${myLibrary[i].title}`;
-        const author = document.createElement('p');
-        author.innerHTML = `Author: ${myLibrary[i].author}`;
-        const pages = document.createElement('p');
-        pages.innerHTML = `Length: ${myLibrary[i].pages} Pages`;
-        
-        let readButton = document.createElement('button');
-        if(myLibrary[i].isRead){
-            readButton.textContent = "Read" ;
-            readButton.classList.add('read');
-        }else{
-            readButton.textContent = "Not Read";
-            readButton.classList.add('unread');
-        }
-        const removeButton = document.createElement('button');
-        removeButton.textContent = "Remove Book"
-        removeButton.addEventListener('click', function(event){
-            console.log(event.target.parentElement.id);
-            targetId = parseInt(event.target.parentElement.id,10);
-            console.log ("target id: " + targetId );
-            for(i=myLibrary.length -1;i>=0;--i){
-                if(myLibrary[i].id === targetId){
-                    myLibrary.splice(i,1);
-                    console.log('removed element');
-                }
-            }
-            console.log(myLibrary);
-            event.target.parentElement.remove();
-        });
-
-        card.appendChild(title);
-        card.appendChild(author);
-        card.appendChild(pages);
-        card.appendChild(readButton);
-        card.appendChild(removeButton);
-        libraryDisplay.appendChild(card);
-    }
-}
-//when the form is submited run this function to add the book
+//populate card with holders for book data      
 const createBookButton = document.querySelector('#add-btn');
 createBookButton.addEventListener('click', () => addBookToLibrary());
-let idCount = myLibrary.length;
+
+//adds book to array and calls the card creation
 function addBookToLibrary(){
-    const libraryDisplay = document.querySelector('.books');
+    idCount++;
+    //selects all the information boxes
     const titleText = document.querySelector('#book-title');
     const authorText = document.querySelector('#book-author');
     const pagesNumber = document.querySelector('#book-pages');
     const isReadStatus = document.querySelector('#book-isRead');
+    //creates a new book with the information values and the checkbox's status as a bool
+    const newBook = new Book((idCount), titleText.value, authorText.value, pagesNumber.value, isReadStatus.checked);
+    //pushes the new book to the end of the array
+    myLibrary.push(newBook);
+    //creates a card with the books information
+    createCard((idCount), titleText.value, authorText.value, pagesNumber.value, isReadStatus.checked);
 
-   
+}
+
+function removeBook(event){
+    //selects the id of the card to find the id of the book to be removed as they are always the same
+    //this has to be turned into an int as the DOM selector returns a string and the id is an int
+    // if it is not parsed it's equivelent to id === 'id' which is always false
+    targetId = parseInt(event.target.parentElement.parentElement.id,10);
+    //iterates backwards through the array to match the id and then removes that book from the array
+    for(i=myLibrary.length -1;i>=0;--i){
+        if(myLibrary[i].id === targetId){
+            myLibrary.splice(i,1);
+        }
+    }
+    //removes the card after the book has been removed from the array
+    event.target.parentElement.parentElement.remove();
+}
+
+//called by addBookToLibrary() is passed all the book object attributes and creates a card out of the information
+function createCard(id, title, author, pages, isRead){
+    //create card div with the id of the book it will be hosting
     const card = document.createElement('div');
     card.classList.add('card');
-    card.setAttribute('id', (idCount+1));
-    idCount++;
+    card.setAttribute('id', id);
 
-    const title = document.createElement('p');
-    title.innerHTML = `Title: ${titleText.value}`;
-    console.log(titleText.value);
-    const author = document.createElement('p');
-    author.innerHTML = `Author: ${authorText.value}`;
-
-    const pages = document.createElement('p');
-    pages.innerHTML = `Length: ${pagesNumber.value} Pages`;
-
+    //get the information about the book and set the text elements to match
+    //set title element
+    const titleElement = document.createElement('p');
+    titleElement.innerHTML = `Title: ${title}`;
+    //set author element
+    const authorElement = document.createElement('p');
+    authorElement.innerHTML = `Author: ${author}`;
+    //set pages element
+    const pagesElement = document.createElement('p');
+    pagesElement.innerHTML = `Length: ${pages} Pages`;
+    //create read button and set the color to reflect the read status
     let readButton = document.createElement('button');
-    if(isReadStatus.checked === true){
+    if(isRead){
         readButton.innerHTML = "Read"
         readButton.classList.add('read');
     }else {
         readButton.innerHTML = "Not Read";
         readButton.classList.add('unread');
     }
+    //create remove button
     const removeButton = document.createElement('button');
     removeButton.textContent = "Remove Book";
+    //adds an event on click to remove the card and the book from the array
     removeButton.addEventListener('click', function(event){
-        console.log(event.target.parentElement.parentElement.id);
-        targetId = parseInt(event.target.parentElement.parentElement.id,10);
-        console.log ("target id: " + targetId );
-        for(i=myLibrary.length -1;i>=0;--i){
-            if(myLibrary[i].id === targetId){
-                myLibrary.splice(i,1);
-                console.log('removed element');
-            }
-        }
-        console.log(myLibrary);
-        event.target.parentElement.parentElement.remove();
+        removeBook(event);
     });
-    const newBook = new Book((idCount), titleText.value, authorText.value, pagesNumber.value, isReadStatus.checked);
+
+    //creats the two div groupings for styling
     const info = document.createElement('div');
     info.classList.add('info');
     const buttons = document.createElement('div');
     buttons.classList.add('buttons');
-    myLibrary.push(newBook);
-    
-    card.appendChild(info);
-    card.appendChild(buttons);
-    info.appendChild(title);
-    info.appendChild(author);
-    info.appendChild(pages);
+
+    //add all info to info div
+    info.appendChild(titleElement);
+    info.appendChild(authorElement);
+    info.appendChild(pagesElement);
+    //add buttons to buttons div
     buttons.appendChild(readButton);
     buttons.appendChild(removeButton);
-
+    //adds both divs to card
+    card.appendChild(info);
+    card.appendChild(buttons);
+    //adds completed card to the page
     libraryDisplay.appendChild(card);
 }
-//to remove book from array use myLibrary.splice(position, 1)
