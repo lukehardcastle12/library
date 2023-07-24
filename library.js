@@ -1,14 +1,14 @@
 let myLibrary = [];
 //TODO
-//function that loops array
-//display each book on the page
+//function that loops array DONE
+//display each book on the page DONE
 
-//add new book button
-//brings up form that lets users add
-//author title pages isRead
-//might use event.preventDefault for form submit button
+//add new book button DONE
+//brings up form that lets users add DONE
+//author title pages isRead DONE
+//might use event.preventDefault for form submit button NOT USED
 
-//add a byttib ib each books display that allows it to be removed from the library
+//add a byttib ib each books display that allows it to be removed from the library DONE
 //add a button that toggles the read status
 //for this create a function that toggles the status on the book prototype instance
 
@@ -60,8 +60,13 @@ function createDisplay(){
         pages.innerHTML = `Length: ${myLibrary[i].pages} Pages`;
         
         let readButton = document.createElement('button');
-        myLibrary[i].isRead ? readButton.textContent = "Read" : readButton.textContent = "Not Read"
-
+        if(myLibrary[i].isRead){
+            readButton.textContent = "Read" ;
+            readButton.classList.add('read');
+        }else{
+            readButton.textContent = "Not Read";
+            readButton.classList.add('unread');
+        }
         const removeButton = document.createElement('button');
         removeButton.textContent = "Remove Book"
         removeButton.addEventListener('click', function(event){
@@ -115,14 +120,16 @@ function addBookToLibrary(){
     let readButton = document.createElement('button');
     if(isReadStatus.checked === true){
         readButton.innerHTML = "Read"
+        readButton.classList.add('read');
     }else {
         readButton.innerHTML = "Not Read";
+        readButton.classList.add('unread');
     }
     const removeButton = document.createElement('button');
     removeButton.textContent = "Remove Book";
     removeButton.addEventListener('click', function(event){
-        console.log(event.target.parentElement.id);
-        targetId = parseInt(event.target.parentElement.id,10);
+        console.log(event.target.parentElement.parentElement.id);
+        targetId = parseInt(event.target.parentElement.parentElement.id,10);
         console.log ("target id: " + targetId );
         for(i=myLibrary.length -1;i>=0;--i){
             if(myLibrary[i].id === targetId){
@@ -131,16 +138,23 @@ function addBookToLibrary(){
             }
         }
         console.log(myLibrary);
-        event.target.parentElement.remove();
+        event.target.parentElement.parentElement.remove();
     });
     const newBook = new Book((idCount), titleText.value, authorText.value, pagesNumber.value, isReadStatus.checked);
-
+    const info = document.createElement('div');
+    info.classList.add('info');
+    const buttons = document.createElement('div');
+    buttons.classList.add('buttons');
     myLibrary.push(newBook);
-    card.appendChild(title);
-    card.appendChild(author);
-    card.appendChild(pages);
-    card.appendChild(readButton);
-    card.appendChild(removeButton);
+    
+    card.appendChild(info);
+    card.appendChild(buttons);
+    info.appendChild(title);
+    info.appendChild(author);
+    info.appendChild(pages);
+    buttons.appendChild(readButton);
+    buttons.appendChild(removeButton);
+
     libraryDisplay.appendChild(card);
 }
 //to remove book from array use myLibrary.splice(position, 1)

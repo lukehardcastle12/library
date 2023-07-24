@@ -7,43 +7,47 @@
     <title>Library</title>
 </head>
 <body>
-    <div class="head">
-        <h1>My Library</h1>
-    </div>
-    <div class="content">
-        <div class="sidebar">
-            <button id="show-form">Add Book</button>
-            <div class="bookform">
-                <label for="book-title">Title: </label>
-                <input type="text" id="book-title">
-
-                <label for="book-author">Author: </label>
-                <input type="text" id="book-author">
-
-                <label for="book-pages">Pages: </label>
-                <input type="number" id="book-pages">
-
-                <label for="book-isRead">Already Read? </label>
-                <input type="checkbox" id="book-isRead">
-
-                <input type="button" id="add-btn" value="Add">
-                
+    <div id="page-container">
+        <div id="content-wrap">
+            <div id="header">
+                <h1>My Library</h1>
             </div>
-            <div class="filter">
-                <button>Title A-Z</button>
-                <button>Author A-Z</button>
-                <button>Pages Low - High</button>
+            <div class="content">
+                <div class="sidebar">
+                    <button id="show-form">Add Book</button>
+                    <div class="bookform">
+                        <label for="book-title">Title: </label>
+                        <input type="text" id="book-title">
+        
+                        <label for="book-author">Author: </label>
+                        <input type="text" id="book-author">
+        
+                        <label for="book-pages">Pages: </label>
+                        <input type="number" id="book-pages">
+        
+                        <label for="book-isRead">Already Read? </label>
+                        <input type="checkbox" id="book-isRead">
+        
+                        <input type="button" id="add-btn" value="Add">
+                        
+                    </div>
+                    <div class="sort">
+                        <button>Recently Added</button>
+                        <button>Title A-Z</button>
+                        <button>Author A-Z</button>
+                        <button>Pages Low - High</button>  
+                        <div class="square"></div>
+                    </div>
+                </div>
+                <div class="books">
+            
+                </div>
             </div>
         </div>
-        <div class="books">
-    
-        </div>
-    </div>
-
-    <div class="foot">
-        <a href="https://github.com/lukehardcastle12/library">lukehardcastle12@github.com</a>
+        <footer id="footer">
+            <a href="https://github.com/lukehardcastle12/library">lukehardcastle12@github.com</a>
+        </footer>
     </div>
     <script src="library.js"></script>
-    
 </body>
 </html>
