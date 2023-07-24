@@ -11,7 +11,12 @@
 //add a button that toggles the read status
 //for this create a function that toggles the status on the book prototype instance
 
-
+//TODO TOMMOROW
+//STYLING FOR CARDS
+//STYLING FOR SIDEBAR
+//FUNCTIONALITY OF READ BUTTON 
+//SHOULD CHANGE isRead ATTRIBUTE
+//ASWELL AS COLOR OF BUTTON
 //WANTS
 //make add book a modal
 //rename filter to sort
