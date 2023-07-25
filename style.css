@@ -4,6 +4,7 @@
 }
 #page-container{
     display: flex;
+    font-family: Courier; 
     position: relative;
     min-height:100vh;
     background-color: #91c8e4;
@@ -91,10 +92,66 @@
     background-color: rgba(70, 130, 169,.5);
     box-sizing: border-box;
 }
+#show-form{
+    margin-top: 16px;
+    border-radius: 12px;
+    width: 90%;
+    height: 24px;
+    background-color: lightgreen;
+}
+.bookform{
+    display: flex;
+    margin-top: 12px;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 95%;
+    
+    align-self: center;
+    gap: 12px;
+}
+#add-btn{
+    color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    margin-top: 12px;
+    border-radius: 12px;
+    width: 90%;
+    height: 24px;
+    align-self: center;
+    margin-left: 4px;
+}
+.bookform > input, .bookform > label{
+   
+    
+}
 .sort{
     display: flex;
     flex-direction: column;
     flex: 1;
+    gap: 16px;
+}
+.sort > p{
+    align-self: center;
+    text-decoration: underline;
+    margin-top: 16px;
+}
+.sort > button, .sidebar > button{
+    background-color: #F6F4EB;
+    color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    align-self: center;
+    border-radius: 12px;
+    width: 90%;
+    height: 24px;
+    
 }
 .bookform{
     display: flex;
