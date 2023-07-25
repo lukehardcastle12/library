@@ -8,7 +8,7 @@
 //might use event.preventDefault for form submit button NOT USED
 
 //add a byttib ib each books display that allows it to be removed from the library DONE
-//add a button that toggles the read status
+//add a button that toggles the read status DONE
 //for this create a function that toggles the status on the book prototype instance
 
 //TODO TOMMOROW
@@ -83,8 +83,7 @@ function addBookToLibrary(){
     //pushes the new book to the end of the array
     myLibrary.push(newBook);
     //creates a card with the books information
-    createCard((idCount), titleText.value, authorText.value, pagesNumber.value, isReadStatus.checked);
-
+    createCard((idCount), titleText.value, authorText.value, pagesNumber.value, isReadStatus.checked); 
 }
 
 function removeBook(event){
@@ -123,11 +122,26 @@ function createCard(id, title, author, pages, isRead){
     let readButton = document.createElement('button');
     if(isRead){
         readButton.innerHTML = "Read"
-        readButton.classList.add('read');
+        readButton.classList.add('read-button');
     }else {
         readButton.innerHTML = "Not Read";
-        readButton.classList.add('unread');
+        readButton.classList.add('unread-button');
     }
+    //adds an event on click to toggle the read status
+    readButton.addEventListener('click', function(event){
+        toggleRead(event);
+    });
+    readButton.addEventListener('click', () =>{
+        if(readButton.classList.contains('unread-button')){
+            readButton.classList.add('read-button');
+            readButton.classList.remove('unread-button');
+            readButton.innerHTML = "Read";
+        }else{
+            readButton.classList.remove('read-button');
+            readButton.classList.add('unread-button');
+            readButton.innerHTML = "Not Read";
+        }
+    });
     //create remove button
     const removeButton = document.createElement('button');
     removeButton.textContent = "Remove Book";
@@ -154,4 +168,14 @@ function createCard(id, title, author, pages, isRead){
     card.appendChild(buttons);
     //adds completed card to the page
     libraryDisplay.appendChild(card);
+}
+
+function toggleRead(event){
+    targetId = parseInt(event.target.parentElement.parentElement.id,10);
+    //iterates backwards through the array to match the id and then removes that book from the array
+    for(i=myLibrary.length -1;i>=0;--i){
+        if(myLibrary[i].id === targetId){
+            myLibrary[i].isRead = !myLibrary[i].isRead;
+        }
+    }
 }

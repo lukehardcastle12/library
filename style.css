@@ -94,9 +94,9 @@
     background-color: #749BC2;
     text-align: center;
 }
-.read{
+.read-button{
     background-color: lightgreen;
 }
-.unread{
+.unread-button{
     background-color: salmon;
 }
