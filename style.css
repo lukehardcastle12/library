@@ -17,11 +17,14 @@
     
 }
 #header{
+    display: flex;
     background-color: rgba(116, 155, 194,0.5);
     height: 5rem;
     width: 100%;
     text-align: center;
     font-family: Courier; 
+    align-items: center;
+    justify-content: center;
 }
 .card{ 
     display: flex;
@@ -67,10 +70,8 @@
     display: flex;
     flex-direction: row;
     box-sizing: border-box;
-    
     align-items: stretch;
     height: 100%;
-    
 }
 
 .books{
@@ -79,9 +80,8 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    
-
 }
+
 .sidebar{
     display: flex;
     flex-shrink: 0;
@@ -90,9 +90,6 @@
     width: 10vw;
     background-color: rgba(70, 130, 169,.5);
     box-sizing: border-box;
-    
-    
-    
 }
 .sort{
     display: flex;
@@ -110,6 +107,19 @@
     bottom: 0;
     background-color: #749BC2;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+#github-mark{
+    width:25px;
+}
+#footer > a{
+    text-decoration: none;
+    font-family: Courier; 
+    color: black;
+    align-self: center;
 }
 .read-button{
     flex: 1;
