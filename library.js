@@ -12,14 +12,14 @@
 //for this create a function that toggles the status on the book prototype instance DONE~
 
 //TODO TOMMOROW
-//STYLING FOR CARDS
-//STYLING FOR SIDEBAR
-//FUNCTIONALITY OF READ BUTTON 
-//SHOULD CHANGE isRead ATTRIBUTE
-//ASWELL AS COLOR OF BUTTON
+//STYLING FOR CARDS DONE
+//STYLING FOR SIDEBAR  DONE
+//FUNCTIONALITY OF READ BUTTON  DONE
+//SHOULD CHANGE isRead ATTRIBUTE  DONE
+//ASWELL AS COLOR OF BUTTON  DONE
 //WANTS
 //make add book a modal
-//rename filter to sort
+//rename filter to sort DONE
 
 //create the empty library array
 let myLibrary = [];
@@ -181,5 +181,96 @@ function toggleRead(event){
         if(myLibrary[i].id === targetId){
             myLibrary[i].isRead = !myLibrary[i].isRead;
         }
+    }
+}
+
+//Sort
+//sort array
+//delete all cards
+//redraw all cards
+function sortRecent(){
+    function compare(a,b){
+        //books id will be higher if newer
+        //if a books Id is higher move it to the front
+        if(a.id > b.id){
+            return -1
+        //if not move it backwards
+        }if(a.id < b.id){
+            return 1;
+        }return 0
+    }
+    myLibrary.sort(compare);
+    //selects all cards and removes them
+    const books = document.querySelectorAll('.card');
+    books.forEach(card => {
+        card.remove();
+    });
+    //loops through sorted library and draws all cards
+    for(i = 0; i < myLibrary.length; i++){
+        createCard(myLibrary[i].id, myLibrary[i].title, myLibrary[i].author, myLibrary[i].pages, myLibrary[i].isRead,);
+    }
+    
+}
+function sortTitle(){
+    function compare(a,b){
+        //if string is alpabetically less move it forwards
+        if(a.title < b.title){
+            return -1
+        //if not move it backwards
+        }if(a.title > b.title){
+            return 1;
+        }return 0
+    }
+    myLibrary.sort(compare);
+    //selects all cards and removes them
+    const books = document.querySelectorAll('.card');
+    books.forEach(card => {
+        card.remove();
+    });
+    //loops through sorted library and draws all cards
+    for(i = 0; i < myLibrary.length; i++){
+        createCard(myLibrary[i].id, myLibrary[i].title, myLibrary[i].author, myLibrary[i].pages, myLibrary[i].isRead,);
+    }
+}
+function sortAuthor(){
+    function compare(a,b){
+        //if string is alpabetically less move it forwards
+        if(a.author < b.author){
+            return -1
+        //if not move it backwards
+        }if(a.author > b.author){
+            return 1;
+        }return 0
+    }
+    myLibrary.sort(compare);
+    //selects all cards and removes them
+    const books = document.querySelectorAll('.card');
+    books.forEach(card => {
+        card.remove();
+    });
+    //loops through sorted library and draws all cards
+    for(i = 0; i < myLibrary.length; i++){
+        createCard(myLibrary[i].id, myLibrary[i].title, myLibrary[i].author, myLibrary[i].pages, myLibrary[i].isRead,);
+    }
+}
+function sortPages(){
+    function compare(a,b){
+        //if pages of a is less than b move forward
+        if(a.pages < b.pages){
+            return -1
+        //if not move it backwards
+        }if(a.pages > b.pages){
+            return 1;
+        }return 0
+    }
+    myLibrary.sort(compare);
+    //selects all cards and removes them
+    const books = document.querySelectorAll('.card');
+    books.forEach(card => {
+        card.remove();
+    });
+    //loops through sorted library and draws all cards
+    for(i = 0; i < myLibrary.length; i++){
+        createCard(myLibrary[i].id, myLibrary[i].title, myLibrary[i].author, myLibrary[i].pages, myLibrary[i].isRead,);
     }
 }
