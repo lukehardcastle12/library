@@ -7,9 +7,9 @@
 //author title pages isRead DONE
 //might use event.preventDefault for form submit button NOT USED
 
-//add a byttib ib each books display that allows it to be removed from the library DONE
+//add a button to each books display that allows it to be removed from the library DONE
 //add a button that toggles the read status DONE
-//for this create a function that toggles the status on the book prototype instance
+//for this create a function that toggles the status on the book prototype instance DONE~
 
 //TODO TOMMOROW
 //STYLING FOR CARDS
@@ -65,11 +65,14 @@ showFormButton.addEventListener('click', function(){
         bookForm.style.display = "none";
     }
 });
+
 //create card
 //populate card with holders for book data      
 const createBookButton = document.querySelector('#add-btn');
 createBookButton.addEventListener('click', () => addBookToLibrary());
-
+createBookButton.addEventListener('click', function() {
+    bookForm.style.display = "none";
+});
 //adds book to array and calls the card creation
 function addBookToLibrary(){
     idCount++;
