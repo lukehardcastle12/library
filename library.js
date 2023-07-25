@@ -144,6 +144,7 @@ function createCard(id, title, author, pages, isRead){
     });
     //create remove button
     const removeButton = document.createElement('button');
+    removeButton.classList.add('remove-button');
     removeButton.textContent = "Remove Book";
     //adds an event on click to remove the card and the book from the array
     removeButton.addEventListener('click', function(event){
