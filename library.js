@@ -185,6 +185,26 @@ function toggleRead(event){
 }
 
 //Sort
+const recentButton = document.querySelector('#recent-btn');
+recentButton.addEventListener('click', function(){
+    sortRecent();
+})
+
+const titleButton = document.querySelector('#title-btn');
+titleButton.addEventListener('click', function(){
+    sortTitle();
+})
+
+const authorButton = document.querySelector('#author-btn');
+authorButton.addEventListener('click', function(){
+    sortAuthor();
+})
+
+const pagesButton = document.querySelector('#pages-btn');
+pagesButton.addEventListener('click', function(){
+    sortPages();
+})
+
 //sort array
 //delete all cards
 //redraw all cards
@@ -208,9 +228,9 @@ function sortRecent(){
     //loops through sorted library and draws all cards
     for(i = 0; i < myLibrary.length; i++){
         createCard(myLibrary[i].id, myLibrary[i].title, myLibrary[i].author, myLibrary[i].pages, myLibrary[i].isRead,);
-    }
-    
+    } 
 }
+
 function sortTitle(){
     function compare(a,b){
         //if string is alpabetically less move it forwards
